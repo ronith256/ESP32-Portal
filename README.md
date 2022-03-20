@@ -73,6 +73,7 @@ Devices used:
 * Webserver/App for representing the data from Master.
 * Complete OTA updates through LoRa and WiFi.
 * Some server to log the collected information like IBM Watson or Azure IoT.
+* Temperature/Humidity sensor addition.
 
 ### Credits
 
