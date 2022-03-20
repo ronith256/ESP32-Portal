@@ -73,8 +73,12 @@ Devices used:
 * Webserver/App for representing the data from Master.
 * Complete OTA updates through LoRa and WiFi.
 * Some server to log the collected information like IBM Watson or Azure IoT.
+* Add Temperature/Humidity sensor.
 
 ### Credits
 
 * LoRa, AsyncWebServer creators
 * Floods
+
+### License
+* Codes in this repository may not be used commercially.
