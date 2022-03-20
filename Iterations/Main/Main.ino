@@ -115,7 +115,7 @@ const char index_html[] PROGMEM = R"rawliteral(
             singleString += "<%>";
             singleString += document.getElementById("message").value;
             singleString += "<&>";
-            singleString += "11.2587531|75.78041";
+            singleString += "11.499797|75.688635";
             ss.value = singleString;
             
         }
@@ -211,7 +211,8 @@ public:
     String collapse = inputMessage.substring(pos4+3, pos5) + " ";
     String message = inputMessage.substring(pos5+3, pos6) + " ";
     String gps = inputMessage.substring(pos6+3);
-    sender(cName,location,medical,fire,collapse,message,gps);
+    String singleString = gps + "|" + cName + "|" + location + "|" + medical + "|" + fire + "|" + collapse + "|" + message;
+    sender(cName,location,medical,fire,collapse,message,gps, singleString);
 
 // Show a success page    
     request->send(200, "text/html", "Your input has been registered. Please wait while we try to contact you (" 
@@ -228,7 +229,7 @@ void loop() {
 }
 
 // Send the fromatted data received from client to LoRa master
-void sender(String cName, String location, String medical, String fire, String collapse, String message, String gps){
+void sender(String cName, String location, String medical, String fire, String collapse, String message, String gps, String singleString){
   // Send macID so the device can be recognised.
   byte mac [6];
   String macID;
@@ -240,15 +241,16 @@ void sender(String cName, String location, String medical, String fire, String c
       macID = macID + String(mac[looper], HEX);
     }
   }
-  macID = macID + " ";
+  singleString = macID + "|" + singleString;
   LoRa.beginPacket();
-  LoRa.print(macID);
-  LoRa.print(cName);
-  LoRa.print(location);
-  LoRa.print(medical);
-  LoRa.print(fire);
-  LoRa.print(collapse);
-  LoRa.print(message);
-  LoRa.print(gps);
+//  LoRa.println(macID);
+  LoRa.println(singleString);
+//  LoRa.println(cName);
+//  LoRa.println(location);
+//  LoRa.println(medical);
+//  LoRa.println(fire);
+//  LoRa.println(collapse);
+//  LoRa.println(message);
+//  LoRa.println(gps);
   LoRa.endPacket();
 }
