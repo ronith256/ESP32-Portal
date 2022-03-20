@@ -81,4 +81,4 @@ Devices used:
 * Floods
 
 ### License
-* Codes in this repository may not be replicated, reused or modified without proper permission.
+* Codes in this repository may not be used commercially.
