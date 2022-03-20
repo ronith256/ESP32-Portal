@@ -1,8 +1,3 @@
-/*********
-  Modified from the examples of the Arduino LoRa library
-  More resources: https://randomnerdtutorials.com
-*********/
-
 #include <SPI.h>
 #include <LoRa.h>
 
@@ -39,9 +34,6 @@ void loop() {
   // try to parse packet
   int packetSize = LoRa.parsePacket();
   if (packetSize) {
-    sender();
-    // received a packet
-    Serial.print("Received packet '");
 
     // read packet
     while (LoRa.available()) {
@@ -55,10 +47,10 @@ void loop() {
   }
 }
 
-void sender(){
-  Serial.println("Sending Packet: ");
-  Serial.println();
-  LoRa.beginPacket();
-  LoRa.print("lol");
-  LoRa.endPacket();
-}
+// void sender(){
+//   Serial.println("Sending Packet: ");
+//   Serial.println();
+//   LoRa.beginPacket();
+//   LoRa.print("lol");
+//   LoRa.endPacket();
+// }
