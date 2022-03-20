@@ -79,3 +79,6 @@ Devices used:
 
 * LoRa, AsyncWebServer creators
 * Floods
+
+### License
+* Codes in this repository may not be replicated, reused or modified without proper permission.
