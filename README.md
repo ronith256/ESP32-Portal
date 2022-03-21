@@ -70,10 +70,10 @@ Devices used:
 ### Path Ahead
 
 * A pretty website for ESP Nodes.
-* Webserver/App for representing the data from Master.
-* Complete OTA updates through LoRa and WiFi.
+* Webserver/App for representing the data from Master. 
+* Complete OTA updates through LoRa and WiFi. (Update: Master can be updated through WiFi now)
 * Some server to log the collected information like IBM Watson or Azure IoT.
-* Add Temprature/Humidity Sensor.
+* Add Temprature/Humidity Sensor (Update: Temperature Done).
 
 ### Credits
 
