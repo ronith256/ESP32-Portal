@@ -16,6 +16,11 @@
 #define rst 14
 #define dio0 26
 
+//define Temperature sensor pins
+#define tempPin 12
+#define beta 4090 
+#define resistance 10 
+
 // Start WebServer and DNS Server
 DNSServer dnsServer;
 AsyncWebServer server(80);
@@ -242,6 +247,8 @@ void sender(String cName, String location, String medical, String fire, String c
     }
   }
   singleString = macID + "|" + singleString;
+  float tempC = tempReturn();
+  singleString = singleString + "|" + String(tempC,2);
   LoRa.beginPacket();
 //  LoRa.println(macID);
   LoRa.println(singleString);
@@ -253,4 +260,10 @@ void sender(String cName, String location, String medical, String fire, String c
 //  LoRa.println(message);
 //  LoRa.println(gps);
   LoRa.endPacket();
+}
+
+float tempReturn(){
+  long a = 1023 - analogRead(tempPin);
+  float tempC = beta/(log((1025.0*10/a-10)/10)+beta/298.0) - 273.0;
+  return tempC;
 }
