@@ -7,22 +7,22 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Emergency Portal</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
     </head>
-    <body>
+    <body onload="getLocation()">
         <div class="heading"> <h1>Emergency Portal</h1> </div>
         <div class="more_info">
-            <div> <p>Your location is: </p><p id="gps"></p></div>
-            <div> <p>The nearest support location is: </p> <p id="sptloc"></p> </div>
+            <div> <p>Your location is: </p>Latitude: 11.2587531 <br> Longitude: 75.78041 <p id="gps"></p></div>
+            <!-- <div> <p>The nearest support location is: </p> <p id="sptloc"></p> </div> -->
         </div>
 
         <div class="form"> 
             <form action="/get">
                 <label for="fname">Name:</label><br>
-                <input type="text" onfocus="getLocation()" id="fname" name="fname" value="Piku"><br>
+                <input type="text" onfocus="getLocation" id="fname" name="fname" value="Piku"><br>
                 <label for="location">Nearby Location:</label><br>
                 <input type="text" id="location" name="location" value="Goa Beach"><br>
                 <p><b>What is your Emergency?</b></p>
@@ -37,8 +37,8 @@
                 
                 <label for="message">Enter a Message (120 Characters) </label><br>
                 <input type="text" id="message" name="message"><br>
-                <label for="gpsHidden"></label>
-                <input type="hidden" id="gpsHidden" name="gpsHidden" value="3487">
+                <!-- <label for="gpsHidden"></label> -->
+                <!-- <input type="hidden" id="gpsHidden" name="gpsHidden" value="3487"> -->
                 <input type="hidden" id="singleString" name="singleString" value="3487">
                 <br>
                 <input onclick="toSingleString()" type="submit" value="Submit">
@@ -62,7 +62,7 @@
         x.innerHTML = "Latitude: " + position.coords.latitude + 
         "<br>Longitude: " + position.coords.longitude;
 
-        gpsHidden.value = position.coords.latitude + "S" + position.coords.longitude;
+//        gpsHidden.value = position.coords.latitude + "S" + position.coords.longitude;
         }
 
         function toSingleString(){
@@ -70,14 +70,18 @@
             // document.getElementById("singleString").value = "lol";
             let ss = document.getElementById("singleString");
             singleString = document.getElementById("fname").value;
+            singleString += "<!>";
             singleString += document.getElementById("location").value;
+            singleString += "<@>";
             singleString += document.getElementById("medical").checked;
+            singleString += "<#>";
             singleString += document.getElementById("fire").checked;
+            singleString += "<$>";
             singleString += document.getElementById("Collapse").checked;
-            singleString += "<split>";
+            singleString += "<%>";
             singleString += document.getElementById("message").value;
-            singleString += "<lsplit>";
-            singleString += document.getElementById("gpsHidden").value;
+            singleString += "<&>";
+            singleString += "11.499797|75.688635";
             ss.value = singleString;
             
         }
