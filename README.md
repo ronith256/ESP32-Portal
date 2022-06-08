@@ -80,5 +80,13 @@ Devices used:
 * LoRa, AsyncWebServer creators
 * Floods
 
+### Individual Contributions
+
+* Prathyush: Python Script to plot the data.
+* Lakshmi: Logging and data management.&#x20;
+* Mridhula: Project Modeling and management.&#x20;
+* Ronith: ESP codes.
+
 ### License
+
 * Codes in this repository may not be used commercially.
