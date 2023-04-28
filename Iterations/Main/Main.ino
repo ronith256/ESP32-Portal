@@ -38,93 +38,202 @@ const char* singleString = "singleString";
 
 const char index_html[] PROGMEM = R"rawliteral(
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Emergency Portal</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body onload="getLocation()">
-        <div class="heading"> <h1>Emergency Portal</h1> </div>
-        <div class="more_info">
-            <div> <p>Your location is: </p>Latitude: 11.2587531 <br> Longitude: 75.78041 <p id="gps"></p></div>
-            <!-- <div> <p>The nearest support location is: </p> <p id="sptloc"></p> </div> -->
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Portal</title>
+    <style>
+        /* Global Styles */
+body {
+  background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5em;
+  text-align: center;
+  padding: 20px 0;
+  color: #333;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"], input[type="checkbox"], input[type="submit"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+}
+
+input[type="checkbox"] {
+  margin-left: 20px;
+}
+
+input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type="submit"]:hover {
+  background-color: #666;
+}
+
+/* Container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Location */
+.location {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.location h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+/* Form */
+.form {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+.form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input[type="text"], input[type="checkbox"] {
+    border: 1px solid #000;
+  }
+
+/* Media Queries */
+@media only screen and (max-width: 767px) {
+  h1 {
+    font-size: 2em;
+  }
+  
+  input[type="text"], input[type="checkbox"], input[type="submit"] {
+    font-size: 1em;
+  }
+}
+</style>
+  </head>
+  <body onload="getLocation()">
+    <div class="container">
+      <div class="header">
+        <h1>Emergency Portal</h1>
+      </div>
+      <div class="content">
+        <div class="form">
+          <form action="/get">
+            <div class="form-group">
+              <label for="fname">Name:</label>
+              <input type="text" onfocus="getLocation()" id="fname" name="fname" value="">
+            </div>
+            <div class="form-group">
+              <label for="location">Nearby Location:</label>
+              <input type="text" id="location" name="location" value="">
+            </div>
+            <div class="form-group">
+              <p><b>What is your Emergency?</b></p>
+              <label for="Medical">Medical</label>
+              <input type="checkbox" id="medical" name="Medical">
+              <label for="Fire">Fire/Explosion</label>
+              <input type="checkbox" id="fire" name="fire">
+              <label for="Collapse">Building Collapse</label>
+              <input type="checkbox" id="Collapse" name="Collapse">
+            </div>
+            <div class="form-group">
+              <label for="message">Enter a Message (120 Characters) </label>
+              <input type="text" id="message" name="message">
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="singleString" name="singleString" value="3487">
+              <input onclick="toSingleString()" type="submit" value="Submit">
+            </div>
+          </form>
         </div>
-
-        <div class="form"> 
-            <form action="/get">
-                <label for="fname">Name:</label><br>
-                <input type="text" onfocus="getLocation" id="fname" name="fname" value="Piku"><br>
-                <label for="location">Nearby Location:</label><br>
-                <input type="text" id="location" name="location" value="Goa Beach"><br>
-                <p><b>What is your Emergency?</b></p>
-                <label for="Medical">Medical</label><br>
-                <input type="checkbox" id="medical" name="Medical"><br>
-
-                <label for="Fire">Fire/Explosion</label><br>
-                <input type="checkbox" id="fire" name="fire"><br>
-
-                <label for="Collapse">Building Collapse</label><br>
-                <input type="checkbox" id="Collapse" name="Collapse"><br>   
-                
-                <label for="message">Enter a Message (120 Characters) </label><br>
-                <input type="text" id="message" name="message"><br>
-                <!-- <label for="gpsHidden"></label> -->
-                <!-- <input type="hidden" id="gpsHidden" name="gpsHidden" value="3487"> -->
-                <input type="hidden" id="singleString" name="singleString" value="3487">
-                <br>
-                <input onclick="toSingleString()" type="submit" value="Submit">
-              </form> 
+        <div class="location">
+          <p>Your location is:</p>
+          <p id="gps"></p>
         </div>
-    </body>
-
+      </div>
+    </div>
     <script>
-         var x = document.getElementById("gps");
-         let gpsHidden = document.getElementById("gpsHidden");
+        // Get the GPS coordinates of the user's location
+var x = document.getElementById("gps");
 
-        function getLocation() {
-        if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-        } else { 
-           x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
 
-        function showPosition(position) {
-        x.innerHTML = "Latitude: " + position.coords.latitude + 
-        "<br>Longitude: " + position.coords.longitude;
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+}
 
-//        gpsHidden.value = position.coords.latitude + "S" + position.coords.longitude;
-        }
-
-        function toSingleString(){
-            let singleString;
-            // document.getElementById("singleString").value = "lol";
-            let ss = document.getElementById("singleString");
-            singleString = document.getElementById("fname").value;
-            singleString += "<!>";
-            singleString += document.getElementById("location").value;
-            singleString += "<@>";
-            singleString += document.getElementById("medical").checked;
-            singleString += "<#>";
-            singleString += document.getElementById("fire").checked;
-            singleString += "<$>";
-            singleString += document.getElementById("Collapse").checked;
-            singleString += "<%>";
-            singleString += document.getElementById("message").value;
-            singleString += "<&>";
-            singleString += "11.499797|75.688635";
-            ss.value = singleString;
-            
-        }
-    </script>
+// Convert form input to a single string for submission
+function toSingleString(){
+  let singleString;
+  let ss = document.getElementById("singleString");
+  
+  singleString = document.getElementById("fname").value;
+  singleString += "<!>";
+  singleString += document.getElementById("location").value;
+  singleString += "<@>";
+  singleString += document.getElementById("medical").checked;
+  singleString += "<#>";
+  singleString += document.getElementById("fire").checked;
+  singleString += "<$>";
+  singleString += document.getElementById("Collapse").checked;
+  singleString += "<%>";
+  singleString += document.getElementById("message").value;
+  singleString += "<&>";
+  singleString += "11.499797|75.688635";
+  
+  ss.value = singleString;
+}
+</script>
+  </body>
 </html>
 )rawliteral";
   
